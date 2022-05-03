@@ -37,7 +37,7 @@ variable "docker_user" {
 
 variable "docker_password" {
   description = "Docker token/password to log in to docker registry"
-  default     = "59a46273-4a34-4c38-a7af-99d00a68cc58"
+  default     = "Paste your docker token here"
 }
 
 # variable "container_image" {
