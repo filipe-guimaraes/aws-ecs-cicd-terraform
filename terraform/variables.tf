@@ -30,6 +30,16 @@ variable "aws_ecr" {
   description = "AWS ECR "
 }
 
+variable "docker_user" {
+  description = "Docker user to log in to docker registry"
+  default     = "filipeguimaraes"
+}
+
+variable "docker_password" {
+  description = "Docker token/password to log in to docker registry"
+  default     = "59a46273-4a34-4c38-a7af-99d00a68cc58"
+}
+
 # variable "container_image" {
 #  description = "Docker image to run in the ECS cluster"
 #  default     = "ibuchh/spring-petclinic-h2"
@@ -116,9 +126,7 @@ variable "source_repo_branch" {
     type = string
 }
 
-
 # Image repo name for ECR
-
 variable "image_repo_name" {
     description = "Image repo name"
     type = string

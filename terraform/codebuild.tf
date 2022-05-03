@@ -105,6 +105,14 @@ resource "aws_codebuild_project" "codebuild" {
       name = "CONTAINER_NAME"
       value = var.family
     }
+    environment_variable {
+      name = "DOCKER_PASSWORD"
+      value = var.docker_password
+    }
+    environment_variable {
+      name = "DOCKER_USER"
+      value = var.docker_user
+    }
   }
   source {
     type = "CODEPIPELINE"
@@ -121,7 +129,9 @@ phases:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=$${COMMIT_HASH:=latest}         
+      - IMAGE_TAG=$${COMMIT_HASH:=latest}
+      - echo Logging in to Docker Registry
+      - docker login -u $DOCKER_USER --password $DOCKER_PASSWORD
   build:
     commands:
       - echo Build started on `date`
