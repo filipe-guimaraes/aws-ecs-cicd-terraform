@@ -4,10 +4,8 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_alb" "alb" {
-  name            = "${var.stack}-alb"
-  # subnets         = "${aws_subnet.public.*.id}"
-  subnets         = aws_subnet.public.*.id
-  # security_groups = ["${aws_security_group.alb-sg.id}"]
+  name = "${var.stack}-alb-${terraform.workspace}"
+  subnets = aws_subnet.public.*.id
   security_groups = [aws_security_group.alb-sg.id]
 }
 
@@ -16,7 +14,7 @@ resource "aws_alb" "alb" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_alb_target_group" "trgp" {
-  name        = "${var.stack}-tgrp"
+  name        = "${var.stack}-tgrp-${terraform.workspace}"
   port        = 8080
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id

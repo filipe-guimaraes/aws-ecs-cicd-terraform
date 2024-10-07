@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Name = "${var.stack}-VPC"
+    Name = "${var.stack}-VPC-${terraform.workspace}"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   vpc_id            = aws_vpc.main.id
   tags = {
-    Name = "${var.stack}-PrivateSubnet-${count.index + 1}"
+    Name = "${var.stack}-PrivateSubnet-${count.index + 1}-${terraform.workspace}"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.stack}-PublicSubnet-${count.index + 1}"
+    Name = "${var.stack}-PublicSubnet-${count.index + 1}-${terraform.workspace}"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_subnet" "public" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "${var.stack}-IGW"
+    Name = "${var.stack}-IGW-${terraform.workspace}"
   }
 }
 
@@ -73,10 +73,11 @@ resource "aws_route" "public-route" {
 
 resource "aws_eip" "eip" {
   count      = var.az_count
-  vpc        = true
+  //vpc        = true
+  domain = "vpc"
   depends_on = [aws_internet_gateway.igw]
   tags = {
-    Name = "${var.stack}-eip-${count.index + 1}"
+    Name = "${var.stack}-eip-${count.index + 1}-${terraform.workspace}"
   }
 }
 
@@ -89,7 +90,7 @@ resource "aws_nat_gateway" "nat" {
   subnet_id     = element(aws_subnet.public.*.id, count.index)
   allocation_id = element(aws_eip.eip.*.id, count.index)
   tags = {
-    Name = "${var.stack}-NatGateway-${count.index + 1}"
+    Name = "${var.stack}-NatGateway-${count.index + 1}-${terraform.workspace}"
   }
 }
 
@@ -106,7 +107,7 @@ resource "aws_route_table" "private-route-table" {
     nat_gateway_id = element(aws_nat_gateway.nat.*.id, count.index)
   }
   tags = {
-    Name = "${var.stack}-PrivateRouteTable-${count.index + 1}"
+    Name = "${var.stack}-PrivateRouteTable-${count.index + 1}-${terraform.workspace}"
   }
 }
 

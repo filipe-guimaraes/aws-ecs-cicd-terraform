@@ -1,3 +1,5 @@
+MAINTAINER Petclinic
+# Base Image
 FROM java:8
 VOLUME /tmp
 ADD target/spring-petclinic-2.3.0.jar app.jar

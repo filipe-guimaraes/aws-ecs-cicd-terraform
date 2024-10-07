@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_security_group" "alb-sg" {
-  name        = "${var.stack}-alb-sg"
+  name        = "${var.stack}-alb-sg-${terraform.workspace}"
   description = "ALB Security Group"
   vpc_id      = aws_vpc.main.id
 
@@ -16,9 +16,9 @@ resource "aws_security_group" "alb-sg" {
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
@@ -31,7 +31,7 @@ resource "aws_security_group" "alb-sg" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_security_group" "task-sg" {
-  name        = "${var.stack}-task-sg"
+  name        = "${var.stack}-task-sg-${terraform.workspace}"
   description = "Allow inbound access to ECS tasks from the ALB only"
   vpc_id      = aws_vpc.main.id
 
@@ -58,7 +58,7 @@ resource "aws_security_group" "task-sg" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_security_group" "db-sg" {
-  name        = "${var.stack}-db-sg"
+  name        = "${var.stack}-db-sg-${terraform.workspace}"
   description = "Access to the RDS instances from the VPC"
   vpc_id      = aws_vpc.main.id
 

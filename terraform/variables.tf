@@ -13,7 +13,7 @@ variable "aws_profile" {
 
 variable "stack" {
   description = "Name of the stack."
-  default     = "GameDay"
+  default     = "petclinic"
 }
 
 variable "vpc_cidr" {
@@ -72,7 +72,6 @@ variable "fargate_memory" {
 
 variable "fargate-task-service-role" {
   description = "Name of the stack."
-  // default     = "GameDay"
 }
 
 variable "db_instance_type" {
@@ -106,7 +105,7 @@ variable "db_initialize" {
 
 variable "cw_log_group" {
   description = "CloudWatch Log Group"
-  default     = "GameDay"
+  default     = "Petclinic"
 }
 
 variable "cw_log_stream" {
@@ -117,18 +116,17 @@ variable "cw_log_stream" {
 # Source repo name and branch
 
 variable "source_repo_name" {
-    description = "Source repo name"
-    type = string
+  description = "Source repo name"
+  type        = string
 }
 
 variable "source_repo_branch" {
-    description = "Source repo branch"
-    type = string
+  description = "Source repo branch"
+  type        = string
 }
 
 # Image repo name for ECR
 variable "image_repo_name" {
-    description = "Image repo name"
-    type = string
+  description = "Image repo name"
+  type        = string
 }
-
