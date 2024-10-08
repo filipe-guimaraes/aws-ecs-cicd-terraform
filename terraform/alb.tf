@@ -4,8 +4,8 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_alb" "alb" {
-  name = "${var.stack}-alb-${terraform.workspace}"
-  subnets = aws_subnet.public.*.id
+  name            = "${var.stack}-alb-${terraform.workspace}"
+  subnets         = aws_subnet.public.*.id
   security_groups = [aws_security_group.alb-sg.id]
 }
 
