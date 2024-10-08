@@ -23,7 +23,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 0.12
+        terraform_version: 0.13.4
     
     - name: Parse commit message
       id: parse_commit
