@@ -2,7 +2,7 @@
 # AWS PROVIDER FOR TF CLOUD
 # ---------------------------------------------------------------------------------------------------------------------
 terraform {
-  required_version = "~>0.12"
+  required_version = "~>0.13.4"
 
   backend "s3" {
     bucket = "tf-petclinic"
@@ -14,8 +14,6 @@ terraform {
 provider "aws" {
   version = "~> 5.0"
   region  = var.aws_region
-  profile = var.aws_profile
-
   default_tags {
     tags = {
       Environment = terraform.workspace
