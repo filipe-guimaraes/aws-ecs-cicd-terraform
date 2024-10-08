@@ -1,0 +1,62 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'terraform/**' 
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get last commit message
+      id: vars
+      run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 0.12
+    
+    - name: Parse commit message
+      id: parse_commit
+      run: |
+        COMMIT_MSG=$(git log -1 --pretty=%B)
+        echo "Commit message: $COMMIT_MSG"
+  
+        if [[ "$COMMIT_MSG" == *"[prod]"* ]]; then
+          echo "env=prod" >> $GITHUB_ENV
+        elif [[ "$COMMIT_MSG" == *"[homolog]"* ]]; then
+          echo "env=homolog" >> $GITHUB_ENV
+        else
+          echo "No valid environment found in commit message."
+          exit 1
+        fi
+      
+    - name: Terraform Init
+      run: terraform init
+      working-directory: terraform
+
+    - name: Select Terraform Workspace
+      if: contains(env.COMMIT_MESSAGE, 'apply-prod')
+      run: terraform workspace select prod
+      working-directory: terraform
+
+    - name: Select Terraform Workspace
+      if: contains(env.COMMIT_MESSAGE, 'apply-homolog')
+      run: terraform workspace select homolog
+      working-directory: terraform
+
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan
+      working-directory: terraform
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
+      working-directory: terraform
