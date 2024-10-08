@@ -30,9 +30,9 @@ jobs:
         COMMIT_MSG=$(git log -1 --pretty=%B)
         echo "Commit message: $COMMIT_MSG"
   
-        if [[ "$COMMIT_MSG" == *"[prod]"* ]]; then
+        if [[ "$COMMIT_MSG" == *"[apply-prod]"* ]]; then
           echo "env=prod" >> $GITHUB_ENV
-        elif [[ "$COMMIT_MSG" == *"[homolog]"* ]]; then
+        elif [[ "$COMMIT_MSG" == *"[apply-homolog]"* ]]; then
           echo "env=homolog" >> $GITHUB_ENV
         else
           echo "No valid environment found in commit message."
