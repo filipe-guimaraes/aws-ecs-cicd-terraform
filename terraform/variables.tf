@@ -89,10 +89,6 @@ variable "db_user" {
   default     = "root"
 }
 
-# variable "db_password" {
-#   description = "RDS DB password"
-# }
-
 variable "db_profile" {
   description = "RDS Profile"
   default     = "mysql"
