@@ -6,11 +6,11 @@ on:
     branches:
       - master
     paths:
-      - 'petclinic-prod/**' 
+      - 'petclinic-homolog/**' 
 
 env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-  ECR_PROD_NAME: ${{ secrets.ECR_PROD_NAME }}
+  ECR_PROD_NAME: ${{ secrets.ECR_HOMOLOG_NAME }}
   CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./petclinic-prod
+        working-directory: ./petclinic-homolog
 
     steps:
     - uses: actions/checkout@v2
@@ -59,15 +59,15 @@ jobs:
         ls -la
         echo "Conteudo do Dockerfile:"
         cat Dockerfile
-        docker build -t $ECR_REGISTRY/$ECR_PROD_NAME:latest .
-        docker tag $ECR_REGISTRY/$ECR_PROD_NAME:latest $ECR_REGISTRY/$ECR_PROD_NAME:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_PROD_NAME:latest
-        docker push $ECR_REGISTRY/$ECR_PROD_NAME:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_PROD_NAME:$IMAGE_TAG"
+        docker build -t $ECR_REGISTRY/$ECR_HOMOLOG_NAME:latest .
+        docker tag $ECR_REGISTRY/$ECR_HOMOLOG_NAME:latest $ECR_REGISTRY/$ECR_HOMOLOG_NAME:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_HOMOLOG_NAME:latest
+        docker push $ECR_REGISTRY/$ECR_HOMOLOG_NAME:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_HOMOLOG_NAME:$IMAGE_TAG"
 
 #    - name: Generate imagedefinitions.json
 #      run: |
-#        echo '[{"name":"'$CONTAINER_NAME'","imageUri":"'$ECR_PROD_NAME:${{ github.sha }}'"}]' > imagedefinitions.json
+#        echo '[{"name":"'$CONTAINER_NAME'","imageUri":"'$ECR_HOMOLOG_NAME:${{ github.sha }}'"}]' > imagedefinitions.json
 #
 #    - name: Upload imagedefinitions.json
 #      uses: actions/upload-artifact@v2
