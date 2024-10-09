@@ -46,6 +46,11 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
+        echo "O valor da variável é: $ECR_REGISTRY"
+        echo "Conteudo do diretorio atual:"
+        ls -la
+        echo "Conteudo do Dockerfile:"
+        cat Dockerfile
         docker build -t $ECR_REGISTRY/$REPOSITORY_URI:latest .
         docker tag $ECR_REGISTRY/$REPOSITORY_URI:latest $ECR_REGISTRY/$REPOSITORY_URI:$IMAGE_TAG
         docker push $ECR_REGISTRY/$REPOSITORY_URI:latest
