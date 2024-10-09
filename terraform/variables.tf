@@ -32,7 +32,7 @@ variable "aws_ecr" {
 
 variable "docker_user" {
   description = "Docker user to log in to docker registry"
-  default     = "filipeguimaraes"
+  default     = "User here"
 }
 
 variable "docker_password" {
