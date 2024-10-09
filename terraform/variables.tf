@@ -40,11 +40,6 @@ variable "docker_password" {
   default     = "Paste your docker token here"
 }
 
-# variable "container_image" {
-#  description = "Docker image to run in the ECS cluster"
-#  default     = "ibuchh/spring-petclinic-h2"
-# }
-
 variable "family" {
   description = "Family of the Task Definition"
   default     = "petclinic"
@@ -57,7 +52,7 @@ variable "container_port" {
 
 variable "task_count" {
   description = "Number of ECS tasks to run"
-  default     = 3
+  default     = 1
 }
 
 variable "fargate_cpu" {
@@ -76,7 +71,7 @@ variable "fargate-task-service-role" {
 
 variable "db_instance_type" {
   description = "RDS instance type"
-  default     = "db.m5.large"
+  default     = "db.t3.medium"
 }
 
 variable "db_name" {
@@ -101,7 +96,7 @@ variable "db_initialize" {
 
 variable "cw_log_group" {
   description = "CloudWatch Log Group"
-  default     = "Petclinic"
+  default     = "petclinic"
 }
 
 variable "cw_log_stream" {

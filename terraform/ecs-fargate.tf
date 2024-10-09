@@ -113,5 +113,5 @@ resource "aws_ecs_service" "service" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_cloudwatch_log_group" "petclinic-cw-lgrp" {
-  name = "var.cw_log_group-${terraform.workspace}"
+  name = "${var.cw_log_group}-${terraform.workspace}"
 }
