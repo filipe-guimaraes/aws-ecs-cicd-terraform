@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'petclinic/**' 
 
 env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
