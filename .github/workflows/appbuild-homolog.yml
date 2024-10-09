@@ -1,4 +1,4 @@
-name: Deploy App on Amazon ECS
+name: Deploy App on Amazon ECS - Homolog
 
 on:
   workflow_dispatch:
