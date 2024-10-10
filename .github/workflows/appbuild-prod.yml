@@ -9,9 +9,9 @@ on:
       - 'petclinic-prod/**' 
 
 env:
-  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-  ECR_PROD_NAME: ${{ secrets.ECR_PROD_NAME }}
-  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+  AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
+  ECR_PROD_NAME: ${{ vars.ECR_PROD_NAME }}
+  CONTAINER_NAME: ${{ vars.CONTAINER_NAME_PROD }}
 
 jobs:
   build-and-push:
