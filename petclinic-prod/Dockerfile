@@ -1,4 +1,4 @@
-#FROM java:8
+##FROM java:8
 #FROM public.ecr.aws/docker/library/tomcat:8.0
 FROM openjdk:8-jdk
 VOLUME /tmp
