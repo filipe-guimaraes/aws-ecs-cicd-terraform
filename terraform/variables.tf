@@ -116,7 +116,7 @@ variable "source_repo_branch" {
   type        = string
 }
 
-## Image repo name for ECR
+# Image repo name for ECR
 variable "image_repo_name" {
   description = "Image repo name"
   type        = string
