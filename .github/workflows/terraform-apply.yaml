@@ -46,26 +46,31 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
-        
-      
+         
     - name: Terraform Init
       run: terraform init
       working-directory: terraform
 
-    - name: Select Terraform Workspace
-      if: contains(env.COMMIT_MESSAGE, 'apply-prod')
-      run: terraform workspace select prod
-      working-directory: terraform
-
-    - name: Select Terraform Workspace
+    - name: Homolog Apply
       if: contains(env.COMMIT_MESSAGE, 'apply-homolog')
-      run: terraform workspace select homolog
+      run: |
+        terraform workspace select homolog
+        terraform plan -out=tfplanhomolog
+        terraform apply -auto-approve tfplanhomolog
       working-directory: terraform
 
-    - name: Terraform Plan
-      run: terraform plan -out=tfplan
+    - name: Prod Apply
+      if: contains(env.COMMIT_MESSAGE, 'apply-prod')
+      run: |
+        terraform workspace select prod
+        terraform plan -out=tfplanprod
+        terraform apply -auto-approve tfplanprod
       working-directory: terraform
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan
-      working-directory: terraform
+#    - name: Terraform Plan
+#      run: terraform plan -out=tfplan
+#      working-directory: terraform
+#
+#    - name: Terraform Apply
+#      run: terraform apply -auto-approve tfplan
+#      working-directory: terraform
