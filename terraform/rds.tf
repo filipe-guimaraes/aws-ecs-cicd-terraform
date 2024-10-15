@@ -30,6 +30,7 @@ resource "aws_db_instance" "db" {
   publicly_accessible    = false
   skip_final_snapshot    = true
   apply_immediately      = true
+  deletion_protection    = true
 
   tags = {
     Name = "${var.stack}-db"
