@@ -6,20 +6,6 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "${var.stack}-cluster-${terraform.workspace}"
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# ECS TASK DEFINITION USING FARGATE
-# ---------------------------------------------------------------------------------------------------------------------
-
-# resource "aws_ecs_task_definition" "petclinic_taskdef" {
-#   family                = "petclinic"
-#   container_definitions = "${data.template_file.petclinic-container.rendered}"
-
-#   lifecycle {
-#     create_before_destroy = true
-#   }
-# }
-
-
 resource "aws_ecs_task_definition" "task-def" {
   family                   = "${var.family}-${terraform.workspace}"
   network_mode             = "awsvpc"
