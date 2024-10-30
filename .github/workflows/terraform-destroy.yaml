@@ -28,7 +28,7 @@ jobs:
       working-directory: terraform
 
     - name: Terraform Workspace Select
-      run: terraform workspace select homolog
+      run: terraform workspace select prod
       working-directory: terraform
 
     - name: Terraform Plan
